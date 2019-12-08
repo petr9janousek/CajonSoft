@@ -1,0 +1,11 @@
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\bin\Debug\cajonConfig.exe
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\bin\Debug\cajonConfig.pdb
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\obj\Debug\cajonConfig.csprojAssemblyReference.cache
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\obj\Debug\cajonConfig.Properties.Resources.resources
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\obj\Debug\cajonConfig.csproj.GenerateResource.cache
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\obj\Debug\cajonConfig.csproj.CoreCompileInputs.cache
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\obj\Debug\cajonConfig.csproj.CopyComplete
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\obj\Debug\cajonConfig.exe
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\obj\Debug\cajonConfig.pdb
+C:\Users\Petr\Desktop\CajonConfig\CajonConfig\obj\Debug\cajonConfig.Form.resources
