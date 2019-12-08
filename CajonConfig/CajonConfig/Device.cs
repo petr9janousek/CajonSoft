@@ -7,18 +7,22 @@ using System.Threading.Tasks;
 using System.IO.Ports;
 using System.Threading;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace cajonConfig
 {
     class Device
     {
         private SerialPort serialPort;
+        public BindingList<string> availablePorts { get; private set; }
 
         public Device()
         {
             serialPort = new SerialPort();
             serialPort.Encoding = Encoding.GetEncoding(28591);
             serialPort.BaudRate = 115200;
+            availablePorts = new BindingList<string>();
+            findPorts();
         }
 
 
@@ -26,7 +30,8 @@ namespace cajonConfig
         public string DevicePort { get; private set; }
 
         public byte[] Colors = new byte[3];
-        public void Upload()
+
+        public void writeColor()
         {
             if (ValidConnection)
             {
@@ -47,7 +52,7 @@ namespace cajonConfig
             }
         }
 
-        public void Download()
+        public void readColor()
         {
             if (ValidConnection)
             {
@@ -70,30 +75,48 @@ namespace cajonConfig
             }
         }
 
-        public void Connect()
+        public void writeProgram()
         {
-            if (ValidConnection)
+            if (!ValidConnection)
+            {/*
+                var uploader = new ArduinoSketchUploader(
+                    new ArduinoSketchUploaderOptions()
+                    {
+                        FileName = @"E:\Cajon\Cajon.ino.eightanaloginputs.hex",
+                        PortName = serialPort.PortName,
+                        ArduinoModel = ArduinoModel.NanoR3
+                    });
+                uploader.UploadSketch();*/
+            }
+            else
+                throw new InvalidOperationException("Nejprve se odpojte");
+        }
+
+        public void Connect(bool state)
+        {
+            if (state)
             {
-                serialPort.Close();
-                ValidConnection = false;
+                FindDevice();
             }
             else
             {
-                FindCOMPort();
+                serialPort.Close();
+                Thread.Sleep(50); //četl jsem že zavření portu může systému chvíli zabrat
+                ValidConnection = false;
             }
         }
 
-        private void FindCOMPort()
+        private void FindDevice()
         {
-            string[] port = SerialPort.GetPortNames();
+            findPorts();
             string devicePort = string.Empty;
             bool connected = false;
 
-            for (int i = 0; i < port.Length; i++)
+            for (int i = 0; i < availablePorts.Count; i++)
             {
-                if (port[i].Contains("COM"))
+                if (availablePorts[i].Contains("COM"))
                 {
-                    serialPort.PortName = port[i];
+                    serialPort.PortName = availablePorts[i];
                     serialPort.Open();
                     serialPort.DiscardInBuffer();
                     serialPort.DiscardOutBuffer();
@@ -103,7 +126,7 @@ namespace cajonConfig
                     if (checkMessage("*CAJON*", 1000))
                     {
                         connected = true;
-                        devicePort = port[i];
+                        devicePort = availablePorts[i];
                         break;
                     }
                     serialPort.Close();
@@ -142,6 +165,21 @@ namespace cajonConfig
                 result = new UTF8Encoding().GetString(buffer);
             }
             return (answer == result);
+        }
+
+        private void findPorts()
+        {
+            availablePorts.Clear();
+            availablePorts.Add("Port");
+            string[] porty = SerialPort.GetPortNames();
+            if (porty.Length <= 1)
+            {
+                availablePorts.Add("---");
+            }
+            for (int i = 0; i < porty.Length; i++)
+            {
+                availablePorts.Add(porty[i]);
+            }
         }
     }
 }

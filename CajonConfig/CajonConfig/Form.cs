@@ -22,64 +22,72 @@ namespace cajonConfig
             InitializeComponent();
             this.DoubleBuffered = true;
 
-            SetCombo(comboBox1);
-            SetCombo(comboBox2);
-            SetCombo(comboBox3);
             cajon = new Device();
+
+            SetCombo(comboBox1, true);
+            SetCombo(comboBox2, true);
+            SetCombo(comboBox3, true);
+            SetCombo(comboBox4, false);
 
             //buttonsHover();
             if (IntPtr.Size == 8)
                 this.Text += " [x64]";
         }
 
-        void SetCombo(ComboBox c)
+        void SetCombo(ComboBox c, bool addColors)
         {
-            BindingList<ComboColorItem> list = new BindingList<ComboColorItem>();
-            list.Add(new ComboColorItem()
+            if (addColors)
             {
-                Color = Color.Empty,
-                Text = "Nevybráno"
-            });
-            list.Add(new ComboColorItem()
+                BindingList<ComboColorItem> list = new BindingList<ComboColorItem>();
+                list.Add(new ComboColorItem()
+                {
+                    Color = Color.Empty,
+                    Text = "Nevybráno"
+                });
+                list.Add(new ComboColorItem()
+                {
+                    Color = Color.Red,
+                    Text = "Červená"
+                });
+                list.Add(new ComboColorItem()
+                {
+                    Color = Color.Green,
+                    Text = "Zelená"
+                });
+                list.Add(new ComboColorItem()
+                {
+                    Color = Color.Blue,
+                    Text = "Modrá"
+                });
+                list.Add(new ComboColorItem()
+                {
+                    Color = Color.Cyan,
+                    Text = "Tyrkysová"
+                });
+                list.Add(new ComboColorItem()
+                {
+                    Color = Color.Magenta,
+                    Text = "Fialová"
+                });
+                list.Add(new ComboColorItem()
+                {
+                    Color = Color.Yellow,
+                    Text = "Žlutá"
+                });
+                list.Add(new ComboColorItem()
+                {
+                    Color = Color.White,
+                    Text = "Bílá"
+                });
+                c.DataSource = list;
+                c.ValueMember = "Color";
+                c.DisplayMember = "Text";
+            }
+            else
             {
-                Color = Color.Red,
-                Text = "Červená"
-            });
-            list.Add(new ComboColorItem()
-            {
-                Color = Color.Green,
-                Text = "Zelená"
-            });
-            list.Add(new ComboColorItem()
-            {
-                Color = Color.Blue,
-                Text = "Modrá"
-            });
-            list.Add(new ComboColorItem()
-            {
-                Color = Color.Cyan,
-                Text = "Tyrkysová"
-            });
-            list.Add(new ComboColorItem()
-            {
-                Color = Color.Magenta,
-                Text = "Fialová"
-            });
-            list.Add(new ComboColorItem()
-            {
-                Color = Color.Yellow,
-                Text = "Žlutá"
-            });
-            list.Add(new ComboColorItem()
-            {
-                Color = Color.White,
-                Text = "Bílá"
-            });
-
+                c.DataSource = cajon.availablePorts;
+            }
             c.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            c.DataSource = list;
-            c.ValueMember = "Color";
-            c.DisplayMember = "Text";
             c.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_DrawItem);
         }
 
@@ -98,24 +106,28 @@ namespace cajonConfig
                 {
                     g.FillRectangle(new SolidBrush(Color.White), rect);
                 }
-
-                ComboColorItem item = ((ComboBox)sender).Items[e.Index] as ComboColorItem;
-                Font f = this.Font;
-                Brush b = new SolidBrush(item.Color);
-                g.DrawString(item.Text, f, Brushes.Black, rect.X + 14, rect.Top);
-                g.FillRectangle(b, rect.X + 2, rect.Y + 2, 10, 10);
-                g.DrawRectangle(new Pen(Color.Black), rect.X + 2, rect.Y + 2, 10, 10);
-                if (item.Color == Color.Empty)
+                if (((ComboBox)sender).Items[e.Index] is ComboColorItem)
                 {
-                    g.DrawLine(new Pen(Color.Black, 2), rect.X + 2, rect.Y + 2, rect.X + 11, rect.Y + 11);
+                    ComboColorItem item = ((ComboBox)sender).Items[e.Index] as ComboColorItem;
+                    Font f = this.Font;
+                    Brush b = new SolidBrush(item.Color);
+                    g.FillRectangle(b, rect.X + 2, rect.Y + 2, 10, 10);
+                    g.DrawRectangle(new Pen(Color.Black), rect.X + 2, rect.Y + 2, 10, 10);
+                    g.DrawString(item.Text, f, Brushes.Black, rect.X + 14, rect.Top);
+                    if (item.Color == Color.Empty)
+                    {
+                        g.DrawLine(new Pen(Color.Black, 2), rect.X + 2, rect.Y + 2, rect.X + 11, rect.Y + 11);
+                    }
+                }
+                else
+                {
+                    string item = ((ComboBox)sender).Items[e.Index] as string;
+                    Font f = this.Font;
+                    g.DrawString(item, f, Brushes.Black, rect.X, rect.Top);
                 }
 
-            }
-        }
 
-        private void Form1_Shown(object sender, EventArgs e)
-        {
-            ConnectAsync();
+            }
         }
 
         private void connect_button_Click(object sender, EventArgs e)
@@ -123,14 +135,19 @@ namespace cajonConfig
             ConnectAsync();
         }
 
-        private void upload_button_Click(object sender, EventArgs e)
+        private void writeColor_button_Click(object sender, EventArgs e)
         {
-            UploadAsync();
+            writeColorAsync();
         }
 
-        private void download_button_Click(object sender, EventArgs e)
+        private void readColor_button_Click(object sender, EventArgs e)
         {
-            DownloadAsync();
+            readColorAsync();
+        }
+
+        private void writeProg_button_Click(object sender, EventArgs e)
+        {
+            writeProgAsync();
         }
 
         private async void ConnectAsync()
@@ -141,14 +158,13 @@ namespace cajonConfig
             {
                 await Task.Run(() =>
                 {
-                    cajon.Connect();
+                    cajon.Connect(true);
                 });
             }
             catch (Exception e)
             {
-                string message = "Cajon nebyl nalezen mezi připojenými zařízeními." +
-                                 "\nZkontrolujte, že cajon je zapojen správně a zkuste to znovu." +
-                                 "\nPOZOR: Po připojení vyčkejte alespoň 10 sekund.";
+                string message = "Cajon se nepodařilo připojit. Zkuste to znovu" +
+                                 "\nPOZOR: Připojit se jde pouze ke cajonu, do kterého již byl nahrán program.";
                 MessageBox.Show(message, e.Message, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
@@ -167,7 +183,7 @@ namespace cajonConfig
             progress.Style = ProgressBarStyle.Blocks;
         }
 
-        private async void DownloadAsync()
+        private async void readColorAsync()
         {
             if (cajon.ValidConnection)
             {
@@ -177,13 +193,13 @@ namespace cajonConfig
                 {
                     await Task.Run(() =>
                     {
-                        cajon.Download();
+                        cajon.readColor();
                     });
                 }
                 catch (TimeoutException t)
                 {
                     string message = "Nepodařilo se potvrdit přijetí zprávy, zkuste to znovu" +
-                                     "\nPOZOR: Pokud tuto zprávu nevidíte poprve, zkuste zařízení odpojit a znovu připojit";
+                                     "\nPOZOR: Pokud tuto zprávu nevidíte poprve, zkuste zařízení odpojit a znovu připojit.";
                     MessageBox.Show(message, t.Message, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 catch (Exception e)
@@ -204,7 +220,7 @@ namespace cajonConfig
             }
         }
 
-        private async void UploadAsync()
+        private async void writeColorAsync()
         {
             if (cajon.ValidConnection)
             {
@@ -218,7 +234,7 @@ namespace cajonConfig
                 {
                     await Task.Run(() =>
                     {
-                        cajon.Upload();
+                        cajon.writeColor();
                     });
                 }
                 catch (TimeoutException t)
@@ -238,6 +254,38 @@ namespace cajonConfig
             {
                 status_label.Text = "Cajon není připojen";
             }
+        }
+
+        private async void writeProgAsync()
+        {
+            progress.Style = ProgressBarStyle.Marquee;
+            status_label.Text = "Nahrávám program...";
+
+            if (cajon.ValidConnection)
+            {
+                cajon.Connect(false);
+                connect_button.Image = cajonConfig.Properties.Resources.toggle_1;
+            }
+            
+            try
+            {
+                await Task.Run(() =>
+                {
+                    cajon.writeProgram();
+                });
+            }
+            catch (InvalidOperationException s)
+            {
+                string message = "Pro nahrání programu musí být program ve stavu odpojeno";
+                MessageBox.Show(message, s.Message, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            status_label.Text = "Nahráno";
+            progress.Style = ProgressBarStyle.Blocks;
+
         }
     }
 
