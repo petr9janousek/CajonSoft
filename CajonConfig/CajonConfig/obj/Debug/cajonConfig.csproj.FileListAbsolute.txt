@@ -20,3 +20,17 @@ C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\obj\Debug\cajonConfig.cs
 C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\obj\Debug\cajonConfig.csproj.CopyComplete
 C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\obj\Debug\cajonConfig.exe
 C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\obj\Debug\cajonConfig.pdb
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\ArduinoUploader.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\IntelHexFormatReader.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\RJCP.SerialPortStream.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\System.Collections.Specialized.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\System.Diagnostics.TraceSource.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\System.IO.FileSystem.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\System.IO.FileSystem.Primitives.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\System.Threading.Overlapped.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\System.Threading.Thread.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\System.Threading.ThreadPool.dll
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\RJCP.SerialPortStream.pdb
+C:\Users\Petr\Desktop\CajonSoft\CajonConfig\CajonConfig\bin\Debug\RJCP.SerialPortStream.xml

@@ -8,6 +8,8 @@ using System.IO.Ports;
 using System.Threading;
 using System.Diagnostics;
 using System.ComponentModel;
+using ArduinoUploader.Hardware;
+using ArduinoUploader;
 
 namespace cajonConfig
 {
@@ -75,18 +77,18 @@ namespace cajonConfig
             }
         }
 
-        public void writeProgram()
+        public void writeProgram(string port)
         {
             if (!ValidConnection)
-            {/*
+            {
                 var uploader = new ArduinoSketchUploader(
                     new ArduinoSketchUploaderOptions()
                     {
-                        FileName = @"E:\Cajon\Cajon.ino.eightanaloginputs.hex",
-                        PortName = serialPort.PortName,
+                        FileName = @"..\..\..\..\Cajon\Cajon.ino.eightanaloginputs.hex",
+                        PortName = port,
                         ArduinoModel = ArduinoModel.NanoR3
                     });
-                uploader.UploadSketch();*/
+                uploader.UploadSketch();
             }
             else
                 throw new InvalidOperationException("Nejprve se odpojte");
@@ -101,7 +103,7 @@ namespace cajonConfig
             else
             {
                 serialPort.Close();
-                Thread.Sleep(50); //četl jsem že zavření portu může systému chvíli zabrat
+                Thread.Sleep(500); //četl jsem že zavření portu může systému chvíli zabrat
                 ValidConnection = false;
             }
         }

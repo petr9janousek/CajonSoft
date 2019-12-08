@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.status_label = new System.Windows.Forms.Label();
+            this.progress = new System.Windows.Forms.ProgressBar();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,10 +45,8 @@
             this.writeColor_button = new System.Windows.Forms.Button();
             this.readColor_button = new System.Windows.Forms.Button();
             this.writeProg_button = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.status_label = new System.Windows.Forms.Label();
-            this.progress = new System.Windows.Forms.ProgressBar();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -67,6 +67,23 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(259, 122);
             this.panel1.TabIndex = 5;
+            // 
+            // status_label
+            // 
+            this.status_label.Location = new System.Drawing.Point(4, 100);
+            this.status_label.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.status_label.MinimumSize = new System.Drawing.Size(102, 0);
+            this.status_label.Name = "status_label";
+            this.status_label.Size = new System.Drawing.Size(102, 14);
+            this.status_label.TabIndex = 15;
+            this.status_label.Text = "Připojte se/Nahrajte";
+            // 
+            // progress
+            // 
+            this.progress.Location = new System.Drawing.Point(111, 97);
+            this.progress.Name = "progress";
+            this.progress.Size = new System.Drawing.Size(132, 18);
+            this.progress.TabIndex = 14;
             // 
             // label3
             // 
@@ -205,6 +222,16 @@
             this.writeProg_button.UseVisualStyleBackColor = true;
             this.writeProg_button.Click += new System.EventHandler(this.writeProg_button_Click);
             // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(433, 8);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(59, 21);
+            this.comboBox4.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.comboBox4, "Vyberte port zařízení do kterého chcete nahrát program");
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
@@ -217,34 +244,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(505, 37);
             this.panel2.TabIndex = 6;
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(433, 8);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(59, 21);
-            this.comboBox4.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.comboBox4, "Vyberte port zařízení do kterého chcete nahrát program");
-            // 
-            // status_label
-            // 
-            this.status_label.Location = new System.Drawing.Point(4, 100);
-            this.status_label.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.status_label.MinimumSize = new System.Drawing.Size(102, 0);
-            this.status_label.Name = "status_label";
-            this.status_label.Size = new System.Drawing.Size(102, 14);
-            this.status_label.TabIndex = 15;
-            this.status_label.Text = "Připojte se";
-            // 
-            // progress
-            // 
-            this.progress.Location = new System.Drawing.Point(111, 97);
-            this.progress.Name = "progress";
-            this.progress.Size = new System.Drawing.Size(132, 18);
-            this.progress.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progress.TabIndex = 14;
             // 
             // Form
             // 

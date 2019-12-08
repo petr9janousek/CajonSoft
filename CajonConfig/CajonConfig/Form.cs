@@ -132,7 +132,8 @@ namespace cajonConfig
 
         private void connect_button_Click(object sender, EventArgs e)
         {
-            ConnectAsync();
+            bool state = cajon.ValidConnection;
+            ConnectAsync(!state);
         }
 
         private void writeColor_button_Click(object sender, EventArgs e)
@@ -147,18 +148,29 @@ namespace cajonConfig
 
         private void writeProg_button_Click(object sender, EventArgs e)
         {
-            writeProgAsync();
+            string port = cajon.availablePorts[comboBox4.SelectedIndex];
+            if(port.Contains("COM"))
+            {
+                writeProgAsync(port);
+            }
+            else
+            {
+                status_label.Text = "Vyberte port!";
+            }
         }
 
-        private async void ConnectAsync()
+        private async void ConnectAsync(bool state)
         {
             progress.Style = ProgressBarStyle.Marquee;
-            status_label.Text = "Připojuji...";
+            if(state)
+                status_label.Text = "Připojuji...";
+            else
+                status_label.Text = "Odpojuji...";
             try
             {
                 await Task.Run(() =>
                 {
-                    cajon.Connect(true);
+                    cajon.Connect(state);
                 });
             }
             catch (Exception e)
@@ -256,7 +268,7 @@ namespace cajonConfig
             }
         }
 
-        private async void writeProgAsync()
+        private async void writeProgAsync(string port)
         {
             progress.Style = ProgressBarStyle.Marquee;
             status_label.Text = "Nahrávám program...";
@@ -271,7 +283,7 @@ namespace cajonConfig
             {
                 await Task.Run(() =>
                 {
-                    cajon.writeProgram();
+                    cajon.writeProgram(port);
                 });
             }
             catch (InvalidOperationException s)
