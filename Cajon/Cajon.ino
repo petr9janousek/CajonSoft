@@ -1,6 +1,8 @@
 //@TODO Nulovani pri spusteni -- nulovani g v ose kolmo dolu
 
 #include <Wire.h>
+#include <EEPROM.h>
+
 /*
    Full scale of potentiometer
    Opt val between 1024-4096?
@@ -30,6 +32,11 @@
 #define XAXEL_H_REG     0x3B
 #define XOFFSET_H_REG   0x06
 #define XOFFSET_L_REG   0x07
+
+#define EEPROM_LOW 0x00
+#define EEPROM_MID 0x01
+#define EEPROM_TOP 0x02
+
 
 /*
    Nastaveni pinu ledek
@@ -67,6 +74,7 @@ int32_t calib;
 int timer2_counter;
 
 void setup() {
+  eepromInit();
   ledInit();
   adcInit();
   wireInit();
@@ -142,8 +150,11 @@ void serialEvent() {
         if (inrange)
         {
           lowColor = colors[0];
+          EEPROM.put(EEPROM_LOW, lowColor);
           midColor = colors[1];
+          EEPROM.put(EEPROM_MID, midColor);
           topColor = colors[2];
+          EEPROM.put(EEPROM_TOP, topColor);
           Serial.print("*DONE*");
         }
       }
@@ -312,3 +323,19 @@ int32_t adcRead(uint8_t channel) {  //cislo kanalo AD-XY
   return ADC;
   //return analogRead(channel);
 }
+
+void eepromInit() {
+  char test[3];
+  EEPROM.get(EEPROM_LOW, test[0]);
+  EEPROM.get(EEPROM_MID, test[1]);
+  EEPROM.get(EEPROM_TOP, test[2]);
+  for(int i = 0; i < 3; i++)
+  {
+    if (!('0' <= test[i] && test[i] <= '9'))  //check if value is sensible
+      test[i] = i + '1';  //if not insert number 1, 2, 3
+  }
+  lowColor = test[0];
+  midColor = test[1];
+  topColor = test[2];
+}
+

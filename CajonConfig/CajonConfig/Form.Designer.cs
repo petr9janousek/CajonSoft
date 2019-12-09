@@ -180,7 +180,7 @@
             this.writeColor_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.writeColor_button.Image = global::cajonConfig.Properties.Resources.upload;
             this.writeColor_button.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.writeColor_button.Location = new System.Drawing.Point(91, 3);
+            this.writeColor_button.Location = new System.Drawing.Point(209, 3);
             this.writeColor_button.Name = "writeColor_button";
             this.writeColor_button.Size = new System.Drawing.Size(102, 29);
             this.writeColor_button.TabIndex = 5;
@@ -196,7 +196,7 @@
             this.readColor_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.readColor_button.Image = global::cajonConfig.Properties.Resources.download;
             this.readColor_button.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.readColor_button.Location = new System.Drawing.Point(194, 3);
+            this.readColor_button.Location = new System.Drawing.Point(91, 3);
             this.readColor_button.Name = "readColor_button";
             this.readColor_button.Size = new System.Drawing.Size(117, 29);
             this.readColor_button.TabIndex = 4;

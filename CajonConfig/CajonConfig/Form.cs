@@ -176,7 +176,7 @@ namespace cajonConfig
             catch (Exception e)
             {
                 string message = "Cajon se nepodařilo připojit. Zkuste to znovu" +
-                                 "\nPOZOR: Připojit se jde pouze ke cajonu, do kterého již byl nahrán program.";
+                                 "\nPOZOR: Připojit se jde pouze ke správně připojenému cajonu, do kterého již byl nahrán program.";
                 MessageBox.Show(message, e.Message, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 

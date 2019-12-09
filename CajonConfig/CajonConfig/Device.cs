@@ -84,7 +84,7 @@ namespace cajonConfig
                 var uploader = new ArduinoSketchUploader(
                     new ArduinoSketchUploaderOptions()
                     {
-                        FileName = @"..\..\..\..\Cajon\Cajon.ino.eightanaloginputs.hex",
+                        FileName = @"..\..\..\..\Cajon\Cajon.ino.hex",
                         PortName = port,
                         ArduinoModel = ArduinoModel.NanoR3
                     });
